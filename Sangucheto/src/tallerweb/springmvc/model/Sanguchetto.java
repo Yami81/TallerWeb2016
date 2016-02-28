@@ -8,8 +8,10 @@ public class Sanguchetto {
 	private static Sanguchetto instance = new Sanguchetto();
 	private List<Ingrediente> ingredientes = new LinkedList<Ingrediente>();
 	
+	//Constructor
 	private Sanguchetto(){}
 	
+	// Método para obtener la instancia de nuestra clase
 	public static Sanguchetto getInstance(){
 		return instance;
 	}
@@ -19,6 +21,8 @@ public class Sanguchetto {
 	 */
 	public void vaciar(){
 		// Implementar
+		
+		ingredientes.clear();
 	}
 	
 	/**

@@ -17,7 +17,8 @@ public class Stock {
 	
 	private Stock(){
 	}
-
+	
+	// Método para obtener la instancia de nuestra clase
 	public static Stock getInstance(){
 		return instance;
 	}
