@@ -36,6 +36,8 @@ public class SanguchetoController {
 		return TipoIngrediente.values(); 
 	}
 	
+	
+	
 	/*Spring hace accesible el modelo a la vista como un atributo de la petición y al 
 	 * controlador si le pasamos un parámetro de tipo ModelMap.*/
 	@RequestMapping(value="/productoAgregado", method=RequestMethod.POST )
@@ -59,6 +61,13 @@ public class SanguchetoController {
 	@RequestMapping(value = "/altaProducto", method = RequestMethod.POST)
 	public ModelAndView mostrar( ModelMap model){
 		return new ModelAndView("productoAgregado");
+	}
+	
+	@RequestMapping(value = "/verProducto", method = RequestMethod.GET)
+	public ModelAndView mostrarstock( ModelMap model){
+		
+		model.addAttribute("listaStock",miStock.obtenerStock());
+		return new ModelAndView("stockProducto");
 	}
     
 	@RequestMapping("irIndex")

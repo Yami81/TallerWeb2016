@@ -13,6 +13,7 @@
 		</div>
 		<div id="contenido">
 			<a href="formulario.do">Alta Producto</a>
+			<a href="verProducto.do">Ver stock</a>
 		</div>
 	</div>
 </body>
