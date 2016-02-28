@@ -21,11 +21,29 @@ public class AgregarProductoTest {
 		}
 		
 		
-		Stock miStock = new Stock();
-		
-		assertEquals(true,miStock.agregarIngrediente(tomate));
+		assertEquals(true,Stock.getInstance().agregarIngrediente(tomate));
 		
 		
 	}
+	
+	
+	@Test 
+	public void EliminarUnProducto (){
+		
+		Ingrediente tomate = new Ingrediente();
+		{
+			tomate.setNombre("tomate");
+			tomate.setPrecio(5.00);
+			tomate.setTipo(TipoIngrediente.INGREDIENTE);
+		}
+		
+		Stock.getInstance().agregarIngrediente(tomate);
+		
+		assertEquals(true,Stock.getInstance().eliminarIngrediente(tomate));
+		
+		
+	}
+	
+	
 	
 }

@@ -15,7 +15,7 @@ public class Stock {
 	private static Stock instance = new Stock();
 	private Map<Ingrediente, Integer> stock = new HashMap<Ingrediente, Integer>();
 	
-	public Stock(){
+	private Stock(){
 	}
 
 	public static Stock getInstance(){
