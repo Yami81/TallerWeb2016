@@ -48,12 +48,14 @@ public class SanguchetoController {
 	miIngrediente.setPrecio(precio);
 	
 	miIngrediente.setTipo(tipo);
-	miStock.agregarIngrediente(miIngrediente);
+	if
+	(miStock.agregarIngrediente(miIngrediente)==true)
 	
-	model.addAttribute("ingrediente",miIngrediente);
+	{model.addAttribute("ingrediente",miIngrediente);
+	return new ModelAndView("productoAgregado");}
 	
-	
-	return new ModelAndView("productoAgregado");
+	else
+	{return new ModelAndView("errorAltaProducto");}
 
 	
 	}

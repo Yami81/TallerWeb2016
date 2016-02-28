@@ -1,5 +1,6 @@
 package tallerweb.springmvc.model;
 
+
 public class Ingrediente {
 
     private String nombre;
@@ -24,4 +25,17 @@ public class Ingrediente {
     public void setTipo(TipoIngrediente tipo) {
         this.tipo = tipo;
     }
+    
+    @Override
+   	public int hashCode() {
+   		return this.getNombre().length();
+   	}
+
+    @Override
+	      public boolean equals(Object o){
+	         if(o instanceof Ingrediente) 
+	            return nombre.equals(((Ingrediente) o).getNombre());
+	              else
+	                return false;
+	      }
 }
