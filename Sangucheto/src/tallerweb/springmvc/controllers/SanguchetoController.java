@@ -1,5 +1,7 @@
 package tallerweb.springmvc.controllers;
 
+import java.util.Set;
+
 //agrego los import
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,22 +44,20 @@ public class SanguchetoController {
 	 * controlador si le pasamos un parámetro de tipo ModelMap.*/
 	@RequestMapping(value="/productoAgregado", method=RequestMethod.POST )
 	public ModelAndView agregarProducto(@RequestParam("nombre") String nombre, @RequestParam("precio") Double precio ,@RequestParam("tipo") TipoIngrediente tipo , ModelMap model ){
-	Ingrediente miIngrediente = new Ingrediente();
+		Ingrediente miIngrediente = new Ingrediente();
 	
-	miIngrediente.setNombre(nombre);
-	miIngrediente.setPrecio(precio);
-	
-	miIngrediente.setTipo(tipo);
-	if
-	(miStock.agregarIngrediente(miIngrediente)==true)
-	
-	{model.addAttribute("ingrediente",miIngrediente);
-	return new ModelAndView("productoAgregado");}
-	
-	else
-	{return new ModelAndView("errorAltaProducto");}
+		miIngrediente.setNombre(nombre);
+		miIngrediente.setPrecio(precio);
+		miIngrediente.setTipo(tipo);
+		
+		if(miStock.agregarIngrediente(miIngrediente)==true){
+			model.addAttribute("ingrediente",miIngrediente);
+			return new ModelAndView("productoAgregado");
+		}
+		else{
+			return new ModelAndView("errorAltaProducto");
+		}
 
-	
 	}
 	
 	@RequestMapping(value = "/altaProducto", method = RequestMethod.POST)
@@ -72,10 +72,41 @@ public class SanguchetoController {
 		return new ModelAndView("stockProducto");
 	}
     
+	@RequestMapping("agregarStock")
+	public ModelAndView agregarStock(){
+		
+		return new ModelAndView("agregarStockIngrediente");
+	}
+	
+	@ModelAttribute("listaIngrediente")
+	public Set<Ingrediente> ingredienteDisponible(){
+		return miStock.listarIngredientesDisponibles();
+		
+	}
+	
+	@RequestMapping(value="/mostrarAgregadoStock", method = RequestMethod.POST)
+	public ModelAndView agregar(@RequestParam("nombre") String nombre, @RequestParam("cantidad") Integer cantidad, ModelMap model){
+		
+		Ingrediente miIngrediente = new Ingrediente();
+		Set<Ingrediente> miListaIngrediente = miStock.listarIngredientesDisponibles();
+		for(Ingrediente ingrediente:miListaIngrediente){
+			if(ingrediente.getNombre().equals(nombre)){
+				miIngrediente = ingrediente;
+			}
+		}
+		
+		miStock.agregarStock(miIngrediente, cantidad);
+		
+		model.addAttribute("ingrediente",miIngrediente);
+		
+		//return "redirect:verProducto.do";
+		return new ModelAndView("mostrarAgregadoStock");
+	}
+	
+	
 	@RequestMapping("irIndex")
 	public ModelAndView volverIndex(){
 		return new ModelAndView("inicio");
 	}
-	
 
 }
