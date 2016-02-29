@@ -65,6 +65,7 @@ public class Stock {
 	 */
 	public Boolean agregarStock(Ingrediente ingrediente, Integer cantidad){
 		if(!this.stock.containsKey(ingrediente)){
+			
 			return false;
 		}
 		Integer nuevaCantidad = this.stock.get(ingrediente) + cantidad;

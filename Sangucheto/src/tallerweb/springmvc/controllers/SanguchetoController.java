@@ -78,6 +78,12 @@ public class SanguchetoController {
 		return new ModelAndView("agregarStockIngrediente");
 	}
 	
+	@RequestMapping("irEliminarProducto")
+	public ModelAndView eliminarProducto(){
+		
+		return new ModelAndView("eliminarProducto");
+	}
+	
 	@ModelAttribute("listaIngrediente")
 	public Set<Ingrediente> ingredienteDisponible(){
 		return miStock.listarIngredientesDisponibles();
@@ -101,6 +107,25 @@ public class SanguchetoController {
 		
 		//return "redirect:verProducto.do";
 		return new ModelAndView("mostrarAgregadoStock");
+	}
+	
+	@RequestMapping(value="/mostrarProductoEliminado", method = RequestMethod.POST)
+	public ModelAndView agregar(@RequestParam("nombre") String nombre,  ModelMap model){
+		
+		Ingrediente miIngrediente = new Ingrediente();
+		Set<Ingrediente> miListaIngrediente = miStock.listarIngredientesDisponibles();
+		for(Ingrediente ingrediente:miListaIngrediente){
+			if(ingrediente.getNombre().equals(nombre)){
+				miIngrediente = ingrediente;
+			}
+		}
+		
+		miStock.eliminarIngrediente(miIngrediente);
+		
+		model.addAttribute("ingrediente",miIngrediente);
+		
+		//return "redirect:verProducto.do";
+		return new ModelAndView("mostrarEliminado");
 	}
 	
 	

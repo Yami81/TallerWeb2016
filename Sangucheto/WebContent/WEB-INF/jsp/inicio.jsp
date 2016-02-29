@@ -16,6 +16,8 @@
 			</br>
 			<a href="verProducto.do">Ver stock</a>
 			</br>
+			<a href="irEliminarProducto.do">Eliminar producto</a>
+			</br>
 			<a href="agregarStock.do">Agregar Producto Stock</a>
 		</div>
 	</div>
