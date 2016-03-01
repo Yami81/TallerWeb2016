@@ -20,21 +20,22 @@ import tallerweb.springmvc.model.TipoIngrediente;
 /*La anotación @Controller indica que la clase es un bean controlador y nos ahorra el trabajo 
  * de definir en XML el bean correspondiente.*/
 @Controller
-public class SanguchetoController {
+public class SanguchetoController 
+{
 	
 	private Stock miStock = Stock.getInstance();
 	
 	/* Con @RequestMapping asociamos una URL al controlador.*/
 	@RequestMapping("formulario")
-	public ModelAndView altaProducto(){
-		
+	public ModelAndView altaProducto()
+	{
 		return new ModelAndView("altaProducto","comand", new Ingrediente());
-			
 	}
 	
 	/*Con este ModelAttribute carga el contenido de la clase (public emun tipoIngr..) definida en el modelo */
 	@ModelAttribute("listaTipo")
-	public TipoIngrediente[] cargarTipoIngrediente(){
+	public TipoIngrediente[] cargarTipoIngrediente()
+	{
 		return TipoIngrediente.values(); 
 	}
 	
@@ -43,94 +44,143 @@ public class SanguchetoController {
 	/*Spring hace accesible el modelo a la vista como un atributo de la petición y al 
 	 * controlador si le pasamos un parámetro de tipo ModelMap.*/
 	@RequestMapping(value="/productoAgregado", method=RequestMethod.POST )
-	public ModelAndView agregarProducto(@RequestParam("nombre") String nombre, @RequestParam("precio") Double precio ,@RequestParam("tipo") TipoIngrediente tipo , ModelMap model ){
-		Ingrediente miIngrediente = new Ingrediente();
+	public ModelAndView agregarProducto(@RequestParam("nombre") String nombre, @RequestParam("precio") Double precio ,@RequestParam("tipo") TipoIngrediente tipo , ModelMap model )throws NullPointerException 
+	{
+		try
+		{
+			if ( precio>0 )
+			{
+				Ingrediente miIngrediente = new Ingrediente();
 	
-		miIngrediente.setNombre(nombre);
-		miIngrediente.setPrecio(precio);
-		miIngrediente.setTipo(tipo);
+				miIngrediente.setNombre(nombre);
+				miIngrediente.setPrecio(precio);
+				miIngrediente.setTipo(tipo);
 		
-		if(miStock.agregarIngrediente(miIngrediente)==true){
-			model.addAttribute("ingrediente",miIngrediente);
-			return new ModelAndView("productoAgregado");
+				if(miStock.agregarIngrediente(miIngrediente)==true)
+				{
+					model.addAttribute("ingrediente",miIngrediente);
+					return new ModelAndView("productoAgregado");
+				}
+				else
+				{
+					return new ModelAndView("errorAltaProducto");
+				}
+			}
+			else
+			{
+				return new ModelAndView("errorAltaProducto");
+			}
 		}
-		else{
+		
+		catch (Exception NullPointerException)
+		{
 			return new ModelAndView("errorAltaProducto");
 		}
-
 	}
 	
 	@RequestMapping(value = "/altaProducto", method = RequestMethod.POST)
-	public ModelAndView mostrar( ModelMap model){
+	public ModelAndView mostrar( ModelMap model)
+	{
 		return new ModelAndView("productoAgregado");
 	}
 	
 	@RequestMapping(value = "/verProducto", method = RequestMethod.GET)
-	public ModelAndView mostrarstock( ModelMap model){
-		
+	public ModelAndView mostrarstock( ModelMap model)
+	{
 		model.addAttribute("listaStock",miStock.obtenerStock());
 		return new ModelAndView("stockProducto");
 	}
     
 	@RequestMapping("agregarStock")
-	public ModelAndView agregarStock(){
-		
+	public ModelAndView agregarStock()
+	{
 		return new ModelAndView("agregarStockIngrediente");
 	}
 	
 	@RequestMapping("irEliminarProducto")
-	public ModelAndView eliminarProducto(){
-		
+	public ModelAndView eliminarProducto()
+	{
 		return new ModelAndView("eliminarProducto");
 	}
 	
 	@ModelAttribute("listaIngrediente")
-	public Set<Ingrediente> ingredienteDisponible(){
+	public Set<Ingrediente> ingredienteDisponible()
+	{
 		return miStock.listarIngredientesDisponibles();
-		
 	}
 	
 	@RequestMapping(value="/mostrarAgregadoStock", method = RequestMethod.POST)
-	public ModelAndView agregar(@RequestParam("nombre") String nombre, @RequestParam("cantidad") Integer cantidad, ModelMap model){
+	public ModelAndView agregar(@RequestParam("nombre") String nombre, @RequestParam("cantidad") Integer cantidad, ModelMap model )throws NullPointerException 
+	{
+		try
+		{
+			if ( cantidad>0 )
+			{
+				Ingrediente miIngrediente = new Ingrediente();
+				Set<Ingrediente> miListaIngrediente = miStock.listarIngredientesDisponibles();
+				
+				for(Ingrediente ingrediente:miListaIngrediente)
+				{
+					if(ingrediente.getNombre().equals(nombre))
+					{
+						miIngrediente = ingrediente;
+					}
+				}
 		
-		Ingrediente miIngrediente = new Ingrediente();
-		Set<Ingrediente> miListaIngrediente = miStock.listarIngredientesDisponibles();
-		for(Ingrediente ingrediente:miListaIngrediente){
-			if(ingrediente.getNombre().equals(nombre)){
-				miIngrediente = ingrediente;
+				miStock.agregarStock(miIngrediente, cantidad);
+		
+				model.addAttribute("ingrediente",miIngrediente);
+		
+				//return "redirect:verProducto.do";
+				return new ModelAndView("mostrarAgregadoStock");}
+		
+			else
+			{
+				return new ModelAndView("errorAltaProducto");
 			}
 		}
 		
-		miStock.agregarStock(miIngrediente, cantidad);
+		catch (Exception NullPointerException)
+		{
+			return new ModelAndView("errorAltaProducto");
+		}
 		
-		model.addAttribute("ingrediente",miIngrediente);
-		
-		//return "redirect:verProducto.do";
-		return new ModelAndView("mostrarAgregadoStock");
 	}
 	
 	@RequestMapping(value="/mostrarProductoEliminado", method = RequestMethod.POST)
-	public ModelAndView agregar(@RequestParam("nombre") String nombre,  ModelMap model){
+	public ModelAndView agregar(@RequestParam("nombre") String nombre,  ModelMap model)throws NullPointerException
+	{
+		try
+		{
+			Ingrediente miIngrediente = new Ingrediente();
+			Set<Ingrediente> miListaIngrediente = miStock.listarIngredientesDisponibles();
 		
-		Ingrediente miIngrediente = new Ingrediente();
-		Set<Ingrediente> miListaIngrediente = miStock.listarIngredientesDisponibles();
-		for(Ingrediente ingrediente:miListaIngrediente){
-			if(ingrediente.getNombre().equals(nombre)){
+			for(Ingrediente ingrediente:miListaIngrediente)
+			{
+				if(ingrediente.getNombre().equals(nombre))
+				{
 				miIngrediente = ingrediente;
+				}
 			}
+		
+			miStock.eliminarIngrediente(miIngrediente);
+		
+			model.addAttribute("ingrediente",miIngrediente);
+		
+			//return "redirect:verProducto.do";
+			return new ModelAndView("mostrarEliminado");
 		}
 		
-		miStock.eliminarIngrediente(miIngrediente);
-		
-		model.addAttribute("ingrediente",miIngrediente);
-		
-		//return "redirect:verProducto.do";
-		return new ModelAndView("mostrarEliminado");
+		catch (Exception NullPointerException)
+		{
+			return new ModelAndView("errorAltaProducto");
+		}
 	}
 	
 	
 	@RequestMapping("irIndex")
-	public ModelAndView volverIndex(){
+	public ModelAndView volverIndex()
+	{
 		return new ModelAndView("inicio");
 	}
 
