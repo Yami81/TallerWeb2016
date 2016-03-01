@@ -14,7 +14,7 @@
 
 	<c:forEach items="${listaStock}" var="Producto">
 		<label name="nombre">Nombre: ${Producto.key.nombre}</label><br>
-		<label name="precio">Percio: ${Producto.key.precio}</label><br>
+		<label name="precio">Percio:$ ${Producto.key.precio}</label><br>
 		<label name="tipo">Tipo: ${Producto.key.tipo}</label><br>
 		<label name="cantidad">Cantidad: ${Producto.value}</label>
 		<br>

@@ -1,6 +1,7 @@
 package tallerweb.springmvc.controllers;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -249,6 +250,21 @@ public class SanguchetoController
 			}
 		}
 		return "redirect:carrito.do";
+	}
+	
+	@ModelAttribute("ingredienteEnLista")
+	public List<Ingrediente> devolverIngredienteEnSanguchetto(){
+		return miSanguchetto.verIngredientes();
+	}
+	
+	@ModelAttribute("condimentoEnLista")
+	public List<Ingrediente> devolverCondimentoEnSanguchetto(){
+		return miSanguchetto.verCondimentos();
+	}
+	
+	@ModelAttribute("precioSang")
+	public  Double devuelvePrecioSanguchetto(){
+		return miSanguchetto.getPrecio();
 	}
 	
 }

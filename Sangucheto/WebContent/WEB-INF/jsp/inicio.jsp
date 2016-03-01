@@ -21,6 +21,7 @@
 			<a href="agregarStock.do">Agregar Producto Stock</a>
 			</br>
 			<a href="carrito.do">Comprar en Sanguchetto</a>
+			
 		</div>
 	</div>
 </body>

@@ -34,7 +34,7 @@
 				</div>
 				<div id="precio">
 				<!-- JSTL - Muestra el resultado de una expresión.  -->
-				Precio: <c:out value="${ingrediente.precio}"/>
+				Precio:$ <c:out value="${ingrediente.precio}"/>
 				</div>
 			    <div id="tipo">
 				<!-- JSTL - Muestra el resultado de una expresión.  -->

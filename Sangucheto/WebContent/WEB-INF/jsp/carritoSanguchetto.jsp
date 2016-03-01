@@ -28,25 +28,12 @@
 			</div>
 		</div>
 		<div id="contenido">
-			<div id="sanguchetto">
-				Tiene:
-				</br>
-				<c:forEach items="${ingredienteEnLista}" var="ingreLista">
-					${ingreLista.nombre}
-					</br>
-				</c:forEach>
-				<c:forEach items="${condimentoEnLista}" var="condiLista">
-					${condiLista.nombre}
-					</br>
-				</c:forEach>
-			</div>
-			
-			<div>
-				<form:form action="comprarIngredientes" method="POST">
+				<div>
+				<form:form action="comprarIngredientes" method="POST" onsubmit="return submitir(this);">
 					<div> <label name="nombre" class="descripcion">Ingrediente</label> </div>
 		
 					<div>
-					<select name="nombre" class="nombre" style="width:222px">
+					<select name="nombre" class="nombre" style="width:145px">
 		    			<option></option>
 		    			<c:forEach items="${ingredienteEnLista}" var="ingreLista">
 							<option value="${ingreLista.nombre}">${ingreLista.nombre}</option>
@@ -60,6 +47,27 @@
 					</br>
 					<div> <input type="submit" value="Agregar"/> </div>
 				</form:form>
+				<form:form action="comprarIngredientes" method="POST" onsubmit="return submitir(this);">
+		
+				<div><label name="nombre" class="descripcion">Condimento</label> </div>
+		
+				<div>
+				<select name="nombre" class="nombre" style="width:145px">
+		    		<option></option>
+		    		<c:forEach items="${condimentoEnLista}" var="condiLista">
+						<option value="${condiLista.nombre}">${condiLista.nombre}</option>
+					</c:forEach>
+					</select>
+				</div>
+		
+				<div> <label name="nombre">Unidad</label><input type="text" name="unidades" class="textarea"/>
+					
+				</div>
+				</br>
+				<div> <input type="submit" value="Agregar"/> </div>
+				</form:form>
+				</br>
+				<a href="irIndex.do"> Volver Menu Principal </a>
 			</div>
 		</div>
 	</div>	
