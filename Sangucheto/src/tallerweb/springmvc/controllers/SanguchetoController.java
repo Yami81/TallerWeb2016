@@ -1,5 +1,8 @@
 package tallerweb.springmvc.controllers;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 //agrego los import
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import tallerweb.springmvc.model.Ingrediente;
+import tallerweb.springmvc.model.Sanguchetto;
 //import tallerweb.springmvc.model.Persona;
 import tallerweb.springmvc.model.Stock;
 import tallerweb.springmvc.model.TipoIngrediente;
@@ -24,6 +28,7 @@ public class SanguchetoController
 {
 	
 	private Stock miStock = Stock.getInstance();
+	private Sanguchetto miSanguchetto = Sanguchetto.getInstance();
 	
 	/* Con @RequestMapping asociamos una URL al controlador.*/
 	@RequestMapping("formulario")
@@ -184,4 +189,66 @@ public class SanguchetoController
 		return new ModelAndView("inicio");
 	}
 
+	//Proceso para Carrito
+	@RequestMapping("carrito")
+	public ModelAndView inicioCarrito(){
+		
+		return new ModelAndView("carritoSanguchetto");
+	}
+	
+	@ModelAttribute("ingredienteEnLista")
+	public HashSet<Ingrediente> devuelveIngrediente(){
+		Set<Ingrediente> miLista = miStock.listarIngredientesDisponibles();
+		HashSet<Ingrediente> nuevaLista = new HashSet<Ingrediente>();
+		
+		for(Ingrediente ingrediente : miLista){
+			if(ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE)){
+				nuevaLista.add(ingrediente);
+			}
+		}
+		
+		return nuevaLista;
+	}
+	
+	@ModelAttribute("condimentoEnLista")
+	public HashSet<Ingrediente> devuelveCondimento(){
+		Set<Ingrediente> miLista = miStock.listarIngredientesDisponibles();
+		HashSet<Ingrediente> nuevaLista = new HashSet<Ingrediente>();
+		
+		for(Ingrediente ingrediente : miLista){
+			if(ingrediente.getTipo().equals(TipoIngrediente.CONDIMENTO)){
+				nuevaLista.add(ingrediente);
+			}
+		}
+		return nuevaLista;
+	}
+	
+	@RequestMapping(value="/comprarIngredientes", method=RequestMethod.POST)
+	public String agregarIngredienteSanguchetto(@RequestParam("nombre") String nombre, @RequestParam("unidad") Integer unidades, ModelMap model){
+		Ingrediente miIngrediente = new Ingrediente();
+		Map<Ingrediente, Integer> miLista = miStock.obtenerStock();
+		for(Entry<Ingrediente, Integer> ingrediente : miLista.entrySet()){
+			if(ingrediente.getKey().getNombre().equals(nombre)){
+				miIngrediente = ingrediente.getKey();
+				Integer cantidad = ingrediente.getValue();
+				
+				if(cantidad >0){
+					if(cantidad >= unidades){
+						miStock.comprarIngrediente(miIngrediente, unidades);
+						for(int i=0; i<unidades; i++){
+							miSanguchetto.agregarIngrediente(miIngrediente);
+						}
+					}
+					else{
+						miStock.comprarIngrediente(miIngrediente, cantidad);
+						for(int j = 0; j < cantidad; j++){
+							miSanguchetto.agregarIngrediente(miIngrediente);
+						}
+					}
+				}
+			}
+		}
+		return "redirect:carrito.do";
+	}
+	
 }

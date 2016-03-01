@@ -18,37 +18,50 @@
 			 }
 	</style>
 </head>
+</head>
 <body>
 	<div id="contenedor">
 		<div id="encabezado">
 			<h2 class="titulo">SANGUCHETO</h2>
 			<div id="textoProducto">
-				ELIMINAR PRODUCTO
+				Agregar su Pedido a Sanguchetto
 			</div>
 		</div>
 		<div id="contenido">
-			<form:form action="mostrarProductoEliminado.do" class="nombre">
-				<div>
-					<label name="nombre">Seleccione Ingrediente</label>
-				</div>
-				<div>
-					<select name="nombre" style="width:145px">
-						<option></option>
-						<c:forEach items="${listaIngrediente}" var="ingredientes">
-							<option value="${ingredientes.nombre}">${ingredientes.nombre}</option>
+			<div id="sanguchetto">
+				Tiene:
+				</br>
+				<c:forEach items="${ingredienteEnLista}" var="ingreLista">
+					${ingreLista.nombre}
+					</br>
+				</c:forEach>
+				<c:forEach items="${condimentoEnLista}" var="condiLista">
+					${condiLista.nombre}
+					</br>
+				</c:forEach>
+			</div>
+			
+			<div>
+				<form:form action="comprarIngredientes" method="POST">
+					<div> <label name="nombre" class="descripcion">Ingrediente</label> </div>
+		
+					<div>
+					<select name="nombre" class="nombre" style="width:222px">
+		    			<option></option>
+		    			<c:forEach items="${ingredienteEnLista}" var="ingreLista">
+							<option value="${ingreLista.nombre}">${ingreLista.nombre}</option>
 						</c:forEach>
 					</select>
-				</div>
-				<div>
-					
-					<input type="submit" name="agregar" value="Eliminar">
-				</div>
-				<div>
+					</div>
+		
+					<div> <label name="nombre">Unidad</label><input type="text" name="unidades" class="textarea"/>
+						
+					</div>
 					</br>
-					<a href="irIndex.do" class="simulaBoton"> Volver Menu Principal</a>
-				</div>
-			</form:form>
-			
+					<div> <input type="submit" value="Agregar"/> </div>
+				</form:form>
+			</div>
 		</div>
+	</div>	
 </body>
 </html>

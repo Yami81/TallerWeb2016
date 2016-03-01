@@ -36,7 +36,7 @@
 				<label name="tipo">Seleccione Tipo</label>
 					       
 				 <select name="tipo" id="tipoSelect">
-        			
+        				<option></option>
        					 <c:forEach items="${listaTipo}" var="tipoProducto">
           				 	<option value="${tipoProducto}">${tipoProducto}</option>
         				 </c:forEach>

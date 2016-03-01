@@ -33,7 +33,7 @@
 				</div>
 				<div>
 					<select name="nombre" style="width:145px">
-						
+						<option></option>
 						<c:forEach items="${listaIngrediente}" var="ingredientes">
 							<option value="${ingredientes.nombre}">${ingredientes.nombre}</option>
 						</c:forEach>
