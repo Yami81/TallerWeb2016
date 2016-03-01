@@ -3,6 +3,8 @@ package tallerweb.springmvc.model;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 public class Sanguchetto {
 
 	private static Sanguchetto instance = new Sanguchetto();
@@ -22,7 +24,7 @@ public class Sanguchetto {
 	public void vaciar(){
 		// Implementar
 		
-		ingredientes.clear();
+		this.ingredientes.clear();
 	}
 	
 	/**
@@ -31,6 +33,8 @@ public class Sanguchetto {
 	 */
 	public void agregarIngrediente(Ingrediente ingrediente){
 		// Implementar
+		
+		this.ingredientes.add(ingrediente);
 	}
 	
 	/**
@@ -57,6 +61,11 @@ public class Sanguchetto {
 	 */
 	public Double getPrecio(){
 		// Implementar
-		return null;
+		
+		Double PrecioFinal = 0.00;
+			for(Ingrediente precio : ingredientes) {
+				PrecioFinal += precio.getPrecio();
+			}
+		return PrecioFinal;
 	}
 }
