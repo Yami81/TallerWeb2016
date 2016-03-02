@@ -17,32 +17,6 @@
   				margin: .5em 0 0 0;
 			 }
 	</style>
-	<script type="text/javascript">
-	
-		function submitir(){
-				
-				var cantidad = document.getElementById("cant").value;
-				
-				if(validarCantidad(cantidad))
-				{
-					return true;
-				}
-				else{
-					alert("Debe ingresar una Cantidad valida.");
-					return false;
-				}
-		}
-		
-		function validarCantidad(valor){
-			var expReg = /^([0-9])*$/;
-			
-			if(expReg.test(valor)){
-				return true;
-			}
-			else 
-				return false;
-		}
-	</script>
 	
 </head>
 <body>
@@ -54,7 +28,7 @@
 			</div>
 		</div>
 		<div id="contenido">
-			<form:form action="mostrarAgregadoStock.do" class="nombre" onsubmit="return submitir();">
+			<form:form action="mostrarAgregadoStock.do" class="nombre">
 				<div>
 					<label name="nombre">Seleccione Ingrediente</label>
 				</div>

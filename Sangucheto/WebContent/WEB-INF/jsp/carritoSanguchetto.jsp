@@ -66,7 +66,7 @@
 					</form:form>	
 					
 					<br>
-					<p style="color:red">${mensaje}</p>
+					${mensaje}
 					</br>
 					
 					<label name="nombre" class="descripcion">hasta el momento tiene:</label>
@@ -86,9 +86,9 @@
 					<label name="nombre" class="descripcion">El precio total es: </label>	
 					${precioFinal}
 					<br>	
-					
 				
-				 <a href="terminar.do">finalizar</a> 
+				
+				<a href="terminar.do">finalizar</a>
 				</br>
 				<a href="irIndex.do"> Volver Menu Principal </a>
 			</div>

@@ -11,32 +11,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="contenedor">
+
+	<c:forEach items="${listaStock}" var="Producto">
+		<label name="nombre">Nombre: ${Producto.key.nombre}</label><br>
+		<label name="precio">Percio:$ ${Producto.key.precio}</label><br>
+		<label name="tipo">Tipo: ${Producto.key.tipo}</label><br>
+		<label name="cantidad">Cantidad: ${Producto.value}</label>
+		<br>
+		<br>
+	</c:forEach>
 	
-	<div id="encabezado">SANGUCHETO
-			<div id="frase"> Listado Stock de Ingredientes </div>
-	</div>
-	<div id="centro">	
-		</br>
-		<table class="gridtable" border=2 width=500>
-			<tr>
-				<td width=500>Nombre</td>
-				<td width=500>Precio</td>
-				<td width=500>Tipo</td>
-				<td width=500>Cantidad</td>
-			</tr>
-			<c:forEach items="${listaStock}" var="Producto">
-				<tr>
-					<td>${Producto.key.nombre}</td>
-					<td>$ ${Producto.key.precio}</td>
-					<td>${Producto.key.tipo}</td>
-					<td>${Producto.value}</td>
-				</tr>
-			</c:forEach>
-			
-		</table>
-	</div>	
-	</div>
 	
 	<br>
 	<a href="irIndex.do" class="simulaBoton"> Volver Menu Principal </a>
