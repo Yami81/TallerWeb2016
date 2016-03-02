@@ -5,24 +5,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TP Final Sangucheto</title>
+<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div id="contenedor">
-		<div id="encabezado">
-			<h2 class="titulo">SANGUCHETO</h2>
-		</div>
-		<div id="contenido">
-			<a href="formulario.do">Alta Producto</a>
-			</br>
-			<a href="verProducto.do">Ver stock</a>
-			</br>
-			<a href="irEliminarProducto.do">Eliminar producto</a>
-			</br>
-			<a href="agregarStock.do">Agregar Producto Stock</a>
-			</br>
-			<a href="carrito.do">Comprar en Sanguchetto</a>
-			
-		</div>
+	<div class="page-header">
+  		<h1 style="text-align:center">BIENVENIDO A SANGUCHETTO</h1>
 	</div>
+	<div class="container">	 <!-- //marco contenedor  general -->
+  		<ul>	
+	  		<li class="nav-item">
+	    		<a class="nav-link active" href="formulario.do">Alta Producto</a>
+	 		 </li>
+	  		<li class="nav-item">
+	    		<a class="nav-link" href="verProducto.do">Ver stock</a>
+	  		</li>
+	  		<li class="nav-item">
+	    		<a class="nav-link" href="irEliminarProducto.do">Eliminar producto</a>
+	  		</li>
+	  		<li class="nav-item">
+	    		<a class="nav-link disabled" href="agregarStock.do">Agregar Producto Stock</a>
+	  		</li>
+	  		<li class="nav-item">
+	    		<a class="nav-link disabled" href="carrito.do">Comprar en Sanguchetto</a>
+	  		</li>
+		</ul>
+		
+    		
+	 		
+  	</div>
+	
 </body>
 </html>
