@@ -197,6 +197,7 @@ public class SanguchetoController
 	public ModelAndView inicioCarrito(Model miModelo, String mensaje){
 		mensaje="";
 		miModelo.addAttribute("mensaje",mensaje);
+		miModelo.addAttribute("precioFinal",miSanguchetto.getPrecio());
 		miModelo.addAttribute("ingredientesSanguchetto", miSanguchetto.verIngredientes());
 		miModelo.addAttribute("condimentosSanguchetto", miSanguchetto.verCondimentos());
 		return new ModelAndView("carritoSanguchetto");
@@ -206,6 +207,7 @@ public class SanguchetoController
 	public ModelAndView stockVacio(Model miModelo, String mensaje){
 		mensaje="no hay stock de ese producto en este momento :(";
 		miModelo.addAttribute("mensaje",mensaje);
+		miModelo.addAttribute("precioFinal",miSanguchetto.getPrecio());
 		miModelo.addAttribute("ingredientesSanguchetto", miSanguchetto.verIngredientes());
 		miModelo.addAttribute("condimentosSanguchetto", miSanguchetto.verCondimentos());
 		return new ModelAndView("carritoSanguchetto");
@@ -248,6 +250,7 @@ public class SanguchetoController
 				{Ingrediente miIngrediente = new Ingrediente();
 		
 		miIngrediente.setNombre(nombre);
+		miIngrediente.setPrecio(entry.getKey().getPrecio());
 		miIngrediente.setTipo(TipoIngrediente.INGREDIENTE);
 		
 		miSanguchetto.agregarIngrediente(miIngrediente);
@@ -275,6 +278,7 @@ public class SanguchetoController
 					Ingrediente miIngrediente = new Ingrediente();
 		
 					miIngrediente.setNombre(nombre2);
+					miIngrediente.setPrecio(entry.getKey().getPrecio());
 					miIngrediente.setTipo(TipoIngrediente.CONDIMENTO);
 		
 					miSanguchetto.agregarIngrediente(miIngrediente);

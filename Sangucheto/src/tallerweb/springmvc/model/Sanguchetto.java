@@ -3,6 +3,8 @@ package tallerweb.springmvc.model;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 public class Sanguchetto {
 
 	private static Sanguchetto instance = new Sanguchetto();
@@ -75,16 +77,11 @@ public class Sanguchetto {
 	 * Devuelve el precio total del sanguchetto.<br>
 	 * @return
 	 */
-	/*public Double getPrecio(){
-		// Implementar
-		
-		double precio = 0;
-		double precioTotal = 0;
-		
-		for(Ingrediente ingrediente : ingredientes) {
-           precio = ingrediente.getPrecio();
-           precioTotal = precioTotal + precio;
+    public Double getPrecio(){
+		Double Total = 0.0;
+		for(Ingrediente precio : this.ingredientes) {
+			Total += precio.getPrecio();
 		}
-		return precioTotal;
-	}*/
+		return Total;
+	}
 }

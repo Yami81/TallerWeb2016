@@ -82,8 +82,11 @@
 						${condiCarro.nombre}
 					</c:forEach>
 					
-					<br>		
 					<br>	
+					<label name="nombre" class="descripcion">El precio total es: </label>	
+					${precioFinal}
+					<br>	
+				
 				
 				<a href="terminar.do">finalizar</a>
 				</br>
