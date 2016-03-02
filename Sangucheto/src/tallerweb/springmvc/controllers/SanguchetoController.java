@@ -8,6 +8,7 @@ import java.util.Set;
 
 //agrego los import
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.web.bind.annotation.PathVariable;
@@ -96,6 +97,7 @@ public class SanguchetoController
 		model.addAttribute("listaStock",miStock.obtenerStock());
 		return new ModelAndView("stockProducto");
 	}
+	
     
 	@RequestMapping("agregarStock")
 	public ModelAndView agregarStock()
@@ -192,8 +194,20 @@ public class SanguchetoController
 
 	//Proceso para Carrito
 	@RequestMapping("carrito")
-	public ModelAndView inicioCarrito(){
-		
+	public ModelAndView inicioCarrito(Model miModelo, String mensaje){
+		mensaje="";
+		miModelo.addAttribute("mensaje",mensaje);
+		miModelo.addAttribute("ingredientesSanguchetto", miSanguchetto.verIngredientes());
+		miModelo.addAttribute("condimentosSanguchetto", miSanguchetto.verCondimentos());
+		return new ModelAndView("carritoSanguchetto");
+	}
+	
+	@RequestMapping("stockVacio")
+	public ModelAndView stockVacio(Model miModelo, String mensaje){
+		mensaje="no hay stock de ese producto en este momento :(";
+		miModelo.addAttribute("mensaje",mensaje);
+		miModelo.addAttribute("ingredientesSanguchetto", miSanguchetto.verIngredientes());
+		miModelo.addAttribute("condimentosSanguchetto", miSanguchetto.verCondimentos());
 		return new ModelAndView("carritoSanguchetto");
 	}
 	
@@ -213,58 +227,89 @@ public class SanguchetoController
 	
 	@ModelAttribute("condimentoEnLista")
 	public HashSet<Ingrediente> devuelveCondimento(){
-		Set<Ingrediente> miLista = miStock.listarIngredientesDisponibles();
-		HashSet<Ingrediente> nuevaLista = new HashSet<Ingrediente>();
+		Set<Ingrediente> miLista2 = miStock.listarIngredientesDisponibles();
+		HashSet<Ingrediente> nuevaLista2 = new HashSet<Ingrediente>();
 		
-		for(Ingrediente ingrediente : miLista){
+		for(Ingrediente ingrediente : miLista2){
 			if(ingrediente.getTipo().equals(TipoIngrediente.CONDIMENTO)){
-				nuevaLista.add(ingrediente);
+				nuevaLista2.add(ingrediente);
 			}
 		}
-		return nuevaLista;
+		return nuevaLista2;
 	}
 	
 	@RequestMapping(value="/comprarIngredientes", method=RequestMethod.POST)
-	public String agregarIngredienteSanguchetto(@RequestParam("nombre") String nombre, @RequestParam("unidad") Integer unidades, ModelMap model){
-		Ingrediente miIngrediente = new Ingrediente();
-		Map<Ingrediente, Integer> miLista = miStock.obtenerStock();
-		for(Entry<Ingrediente, Integer> ingrediente : miLista.entrySet()){
-			if(ingrediente.getKey().getNombre().equals(nombre)){
-				miIngrediente = ingrediente.getKey();
-				Integer cantidad = ingrediente.getValue();
+	public ModelAndView agregarIngredienteSanguchetto(@RequestParam("nombre") String nombre, ModelMap model){
+		
+		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet()){
+			if(entry.getKey().getNombre().equals(nombre))
 				
-				if(cantidad >0){
-					if(cantidad >= unidades){
-						miStock.comprarIngrediente(miIngrediente, unidades);
-						for(int i=0; i<unidades; i++){
-							miSanguchetto.agregarIngrediente(miIngrediente);
-						}
-					}
-					else{
-						miStock.comprarIngrediente(miIngrediente, cantidad);
-						for(int j = 0; j < cantidad; j++){
-							miSanguchetto.agregarIngrediente(miIngrediente);
-						}
-					}
+		{ if(entry.getValue()>0)
+				{Ingrediente miIngrediente = new Ingrediente();
+		
+		miIngrediente.setNombre(nombre);
+		miIngrediente.setTipo(TipoIngrediente.INGREDIENTE);
+		
+		miSanguchetto.agregarIngrediente(miIngrediente);
+		
+		
+		return new ModelAndView("redirect:/carrito.do");}  
+		else
+		{return new ModelAndView("redirect:/stockVacio.do");}
+		}
+		}
+		
+		return new ModelAndView("inicio");
+	}
+	
+	
+	
+	@RequestMapping(value="/comprarCondimentos", method=RequestMethod.POST)
+	public ModelAndView agregarCondimentoSanguchetto(@RequestParam("nombre2") String nombre2, ModelMap model){
+		
+		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet()){
+			if(entry.getKey().getNombre().equals(nombre2))
+				
+				{ if(entry.getValue()>0)
+				{
+					Ingrediente miIngrediente = new Ingrediente();
+		
+					miIngrediente.setNombre(nombre2);
+					miIngrediente.setTipo(TipoIngrediente.CONDIMENTO);
+		
+					miSanguchetto.agregarIngrediente(miIngrediente);
+		
+		
+					return new ModelAndView("redirect:/carrito.do");}  
+				else
+				{return new ModelAndView("redirect:/stockVacio.do");}
 				}
 			}
-		}
-		return "redirect:carrito.do";
+		
+		return new ModelAndView("inicio");
 	}
 	
-	@ModelAttribute("ingredienteEnLista")
-	public List<Ingrediente> devolverIngredienteEnSanguchetto(){
-		return miSanguchetto.verIngredientes();
+	
+	@RequestMapping (value = "/terminar")
+	public ModelAndView terminarSanguchetto ()
+	{
+		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet())
+	{for (Ingrediente popo: miSanguchetto.ObtenerCarrito())
+	{if(entry.getKey().getNombre().equals(popo.getNombre()))
+			{miStock.comprarIngrediente(entry.getKey(),1);}}}
+		
+		miSanguchetto.vaciar();
+		
+		return new ModelAndView("graciasPorSuCompra");
 	}
 	
-	@ModelAttribute("condimentoEnLista")
-	public List<Ingrediente> devolverCondimentoEnSanguchetto(){
-		return miSanguchetto.verCondimentos();
-	}
 	
-	@ModelAttribute("precioSang")
+	
+	/*@ModelAttribute("precioSang")
 	public  Double devuelvePrecioSanguchetto(){
 		return miSanguchetto.getPrecio();
-	}
+	}*/
+	
+	
 	
 }

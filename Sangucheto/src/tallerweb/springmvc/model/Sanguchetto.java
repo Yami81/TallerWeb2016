@@ -22,7 +22,13 @@ public class Sanguchetto {
 	public void vaciar(){
 		// Implementar
 		
-		ingredientes.clear();
+		this.ingredientes.clear();
+	}
+	
+	public List<Ingrediente> ObtenerCarrito(){
+		
+		
+		return ingredientes;
 	}
 	
 	/**
@@ -31,7 +37,7 @@ public class Sanguchetto {
 	 */
 	public void agregarIngrediente(Ingrediente ingrediente){
 		// Implementar
-		ingredientes.add(ingrediente);
+		this.ingredientes.add(ingrediente);
 	}
 	
 	/**
@@ -41,7 +47,7 @@ public class Sanguchetto {
 	public List<Ingrediente> verIngredientes(){
 		// Implementar
 		List<Ingrediente> listaMostrarIngredientes = new LinkedList<Ingrediente>();
-		for(Ingrediente ingrediente : ingredientes) {
+		for(Ingrediente ingrediente : this.ingredientes) {
            if(ingrediente.getTipo().equals(TipoIngrediente.INGREDIENTE)){
         	   listaMostrarIngredientes.add(ingrediente);
            }
@@ -56,20 +62,20 @@ public class Sanguchetto {
     public List<Ingrediente> verCondimentos(){
         // Implementar
     	
-		List<Ingrediente> listaMostrarIngredientes = new LinkedList<Ingrediente>();
-		for(Ingrediente ingrediente : ingredientes) {
+		List<Ingrediente> listaMostrarCondimentos = new LinkedList<Ingrediente>();
+		for(Ingrediente ingrediente : this.ingredientes) {
            if(ingrediente.getTipo().equals(TipoIngrediente.CONDIMENTO)){
-        	   listaMostrarIngredientes.add(ingrediente);
+        	   listaMostrarCondimentos.add(ingrediente);
            }
         }
-		return listaMostrarIngredientes;
+		return listaMostrarCondimentos;
     }
 	
 	/**
 	 * Devuelve el precio total del sanguchetto.<br>
 	 * @return
 	 */
-	public Double getPrecio(){
+	/*public Double getPrecio(){
 		// Implementar
 		
 		double precio = 0;
@@ -80,5 +86,5 @@ public class Sanguchetto {
            precioTotal = precioTotal + precio;
 		}
 		return precioTotal;
-	}
+	}*/
 }
