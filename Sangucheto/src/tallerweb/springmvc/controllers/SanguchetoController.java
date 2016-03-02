@@ -205,7 +205,7 @@ public class SanguchetoController
 	
 	@RequestMapping("stockVacio")
 	public ModelAndView stockVacio(Model miModelo, String mensaje){
-		mensaje="no hay stock de ese producto en este momento :(";
+		mensaje="No hay stock de ese producto en este momento.";
 		miModelo.addAttribute("mensaje",mensaje);
 		miModelo.addAttribute("precioFinal",miSanguchetto.getPrecio());
 		miModelo.addAttribute("ingredientesSanguchetto", miSanguchetto.verIngredientes());
@@ -308,6 +308,8 @@ public class SanguchetoController
 	}
 	
 	
+	
+			
 	
 	/*@ModelAttribute("precioSang")
 	public  Double devuelvePrecioSanguchetto(){
