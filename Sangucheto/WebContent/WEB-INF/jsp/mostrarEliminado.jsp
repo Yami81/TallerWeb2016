@@ -10,6 +10,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TP Final Sangucheto</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 	<style type="text/css">
 		.titulo{text-align:center;}
 		label {
@@ -19,7 +23,21 @@
 	</style>
 </head>
 <body>
-	<div id="contenedor">
+	<div class="container">	 <!-- //marco contenedor  general -->
+		<div class="page-header" style="text-align:center">
+			<h1>SANGUCHETTO</h1>
+		</div>
+		<div class="alert alert-success" style="text-align:center">
+			Se ha eliminado correctamente el producto del Stock!
+		</div>
+		<center>
+		
+       		<a href="verProducto.do" class="btn btn-success">Ver Detalle</a>
+			
+		</center>
+	</div>	
+	
+	<!-- <div id="contenedor">
 		<div id="encabezado">
 			<h2 class="titulo">SANGUCHETO</h2>
 			
@@ -28,7 +46,7 @@
 			<h2>Producto eliminado.</h2>
 		</div>
 		<a href="verProducto.do">Ver Detalle</a>
-	</div>
+	</div> -->
 	
 	
     

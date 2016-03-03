@@ -80,7 +80,7 @@
 					<div class="col-md-5">
 						<div class="form-group">	
 							<label class="text-uppercase">Nombre</label>
-							<input type="text" class="form-control text-uppercase" id="name" name="nombre">
+							<input type="text" class="form-control" id="name" name="nombre">
 						</div>
 					</div>	
 				</div>
@@ -90,7 +90,7 @@
 					<div class="col-md-5">
 						<div class="form-group">
 							<label class="text-uppercase">Precio</label>
-							<input type="text" class="form-control text-uppercase" id="price" name="precio">
+							<input type="text" class="form-control" id="price" name="precio">
 							
 						</div>	
 					</div>	
@@ -112,15 +112,12 @@
 					</div>		       
 				 </div>
 				 </br>
-				 <div class="row">
-				 	<div class="col-md-5">
-					</div>
-      			 	<div class="col-md-1">
-      			 		<div class="form-group">
+				 
+      			 	<div class="btn-group">
       			 			<button class="btn btn-success" type="submit">Agregar Producto</button>
-      			 		</div>
+      			 		
       			 	</div>
-      			 </div>				
+      						
 			</form:form>
 		
 	</div>

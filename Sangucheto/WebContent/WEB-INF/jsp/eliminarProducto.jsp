@@ -30,7 +30,7 @@
 		<form:form action="mostrarProductoEliminado.do" class="nombre">
 			<div class="row">	
 				<div class="col-md-9">
-					<p>ELIMINAR PRODUCTO</p>
+					<p>ELIMINE PRODUCTO</p>
 				</div>
 			</div>
 			<div class="row">	

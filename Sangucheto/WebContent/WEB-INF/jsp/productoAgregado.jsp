@@ -42,11 +42,10 @@
 		  		<li class="list-group-item">TIPO: <c:out value="${ingrediente.tipo}"/></li>
   			</ul>
 		</div>
-		<div>
-      		<div class="form-group">
-				<button class="btn btn-success" type="submit"><a href="irIndex.do" class="btn"> Volver Menu Principal </a></button>
-			</div>
+		<div class="btn-group">
+					<a href="irIndex.do" class="btn btn-success"> Volver Menu Principal </a>
 		</div>
+		
 		
 			<!--  <div id="contenido">  
 				<div id="nombre">-->
