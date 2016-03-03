@@ -13,24 +13,15 @@
 </head>
 <body>
 
-La compra se realizo con exito, gracias.
+${mensaje}
 <br>
+<p>El precio final es de $ ${total}</p>
 <br>
+<p>Gracias por su compra, vuelva pronto</p>
+<br>
+<a href="vaciarCarrito.do">Finalizar</a>
 
-<c:forEach items="${listaComprada}" var="listacompra">
 
-	${listacompra.nombre}
-	
-	${listacompra.precio}
-	</br>
-</c:forEach>
 
-<p>Precio Total es:${precio}</p>
-
-<button class="btn btn-success" type="submit" ><a href="descuentoMonto.do">Descuento Fijo</a></button>
-<button class="btn btn-success" type="submit" ><a href="descuentoPorcentaje.do">Descuento por Porcentaje</a></button>
-<p>${mensajeDescuento}</p>
-</br>
-<a href="vaciarCarrito.do" class="simulaBoton"> Volver Menu Principal </a>
 </body>
 </html>

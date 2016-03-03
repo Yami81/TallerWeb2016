@@ -214,6 +214,16 @@ public class SanguchetoController
 		return new ModelAndView("carritoSanguchetto");
 	}
 	
+	@RequestMapping("stockInsuficiente")
+	public ModelAndView stockInsuficiente(Model miModelo, String mensaje){
+		mensaje="No hay suficiente stock de ese producto en este momento.";
+		miModelo.addAttribute("mensaje",mensaje);
+		miModelo.addAttribute("precioFinal",miSanguchetto.getPrecio());
+		miModelo.addAttribute("ingredientesSanguchetto", miSanguchetto.verIngredientes());
+		miModelo.addAttribute("condimentosSanguchetto", miSanguchetto.verCondimentos());
+		return new ModelAndView("carritoSanguchetto");
+	}
+	
 	@ModelAttribute("ingredienteEnLista")
 	public HashSet<Ingrediente> devuelveIngrediente(){
 		Set<Ingrediente> miLista = miStock.listarIngredientesDisponibles();
@@ -242,26 +252,41 @@ public class SanguchetoController
 	}
 	
 	@RequestMapping(value="/comprarIngredientes", method=RequestMethod.POST)
-	public ModelAndView agregarIngredienteSanguchetto(@RequestParam("nombre") String nombre, ModelMap model){
+	public ModelAndView agregarIngredienteSanguchetto(@RequestParam("nombre") String nombre, ModelMap model, Integer cantidadEnCarrito){
+		
+		cantidadEnCarrito = 1;
+		
+		for(Ingrediente ingre : miSanguchetto.ObtenerCarrito()){
+			if(ingre.getNombre().equals(nombre)){
+				cantidadEnCarrito= cantidadEnCarrito+1;
+			}
+		}
 		
 		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet()){
-			if(entry.getKey().getNombre().equals(nombre))
-				
-		{ if(entry.getValue()>0)
-				{Ingrediente miIngrediente = new Ingrediente();
+			if(entry.getKey().getNombre().equals(nombre)){ 
+				if(entry.getValue()>0){
+					if(entry.getValue()>=cantidadEnCarrito){
+					
+						Ingrediente miIngrediente = new Ingrediente();
 		
-		miIngrediente.setNombre(nombre);
-		miIngrediente.setPrecio(entry.getKey().getPrecio());
-		miIngrediente.setTipo(TipoIngrediente.INGREDIENTE);
+						miIngrediente.setNombre(nombre);
+						miIngrediente.setPrecio(entry.getKey().getPrecio());
+						miIngrediente.setTipo(TipoIngrediente.INGREDIENTE);
 		
-		miSanguchetto.agregarIngrediente(miIngrediente);
+						miSanguchetto.agregarIngrediente(miIngrediente);
 		
 		
-		return new ModelAndView("redirect:/carrito.do");}  
-		else
-		{return new ModelAndView("redirect:/stockVacio.do");}
-		}
-		}
+						return new ModelAndView("redirect:/carrito.do");
+						}
+					else{
+						return new ModelAndView("redirect:/stockInsuficiente.do");
+						}
+					}
+					
+				else
+				{return new ModelAndView("redirect:/stockVacio.do");}
+				}
+			}
 		
 		return new ModelAndView("inicio");
 	}
@@ -269,23 +294,37 @@ public class SanguchetoController
 	
 	
 	@RequestMapping(value="/comprarCondimentos", method=RequestMethod.POST)
-	public ModelAndView agregarCondimentoSanguchetto(@RequestParam("nombre2") String nombre2, ModelMap model){
+	public ModelAndView agregarCondimentoSanguchetto(@RequestParam("nombre2") String nombre2, ModelMap model, Integer cantidadEnCarrito){
+		
+		cantidadEnCarrito = 1;
+		
+		for(Ingrediente ingre : miSanguchetto.ObtenerCarrito()){
+			if(ingre.getNombre().equals(nombre2)){
+				cantidadEnCarrito= cantidadEnCarrito+1;
+			}
+		}
 		
 		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet()){
-			if(entry.getKey().getNombre().equals(nombre2))
-				
-				{ if(entry.getValue()>0)
-				{
-					Ingrediente miIngrediente = new Ingrediente();
+			if(entry.getKey().getNombre().equals(nombre2)){ 
+				if(entry.getValue()>0){
+					if(entry.getValue()>=cantidadEnCarrito){
+					
+						Ingrediente miIngrediente = new Ingrediente();
 		
-					miIngrediente.setNombre(nombre2);
-					miIngrediente.setPrecio(entry.getKey().getPrecio());
-					miIngrediente.setTipo(TipoIngrediente.CONDIMENTO);
+						miIngrediente.setNombre(nombre2);
+						miIngrediente.setPrecio(entry.getKey().getPrecio());
+						miIngrediente.setTipo(TipoIngrediente.CONDIMENTO);
 		
-					miSanguchetto.agregarIngrediente(miIngrediente);
+						miSanguchetto.agregarIngrediente(miIngrediente);
 		
 		
-					return new ModelAndView("redirect:/carrito.do");}  
+						return new ModelAndView("redirect:/carrito.do");
+						}
+					else{
+						return new ModelAndView("redirect:/stockInsuficiente.do");
+						}
+					}
+					
 				else
 				{return new ModelAndView("redirect:/stockVacio.do");}
 				}
@@ -296,33 +335,23 @@ public class SanguchetoController
 	
 	
 	@RequestMapping (value = "/terminar")
-	public ModelAndView terminarSanguchetto (Model model, Double descuento, Double descuentoFinal, String mensaje)
+	public ModelAndView terminarSanguchetto (Model model, Double descuento, String mensaje)
 	{
-		descuento = 0.0;
-		descuentoFinal = 0.0;
-		mensaje = "";
+		
+		
 		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet())
-		{for (Ingrediente popo: miSanguchetto.ObtenerCarrito())
-		{if(entry.getKey().getNombre().equals(popo.getNombre()))
+		{for (Ingrediente ingre: miSanguchetto.ObtenerCarrito())
+		{if(entry.getKey().getNombre().equals(ingre.getNombre()))
 			{miStock.comprarIngrediente(entry.getKey(),1);}}}
 		
-		if(miSanguchetto.getPrecio() > 20.0){
-			//el descuento es del 10%
-			descuento = miSanguchetto.getPrecio() * 0.10;
-			descuentoFinal = miSanguchetto.getPrecio() - descuento;
-			mensaje = "Se agrego un descuento, su ahorro fue:$" + descuento;
-		}
-		else
-		{
-			descuentoFinal = miSanguchetto.getPrecio();
-		}
+		
 		
 		
 		//Trae lista producto con precio total
 		model.addAttribute("listaComprada", miSanguchetto.ObtenerCarrito());
-		model.addAttribute("precio", descuentoFinal);
-		model.addAttribute("mensajeDescuento", mensaje);			
-		return new ModelAndView("graciasPorSuCompra");
+		model.addAttribute("precio", miSanguchetto.getPrecio());
+			
+		return new ModelAndView("finalizandoCarrito");
 	}
 	
 	
@@ -354,6 +383,43 @@ public class SanguchetoController
 		
 	}
 	
+	@RequestMapping(value="/agregarDescuentoMonto", method=RequestMethod.POST)
+	public ModelAndView agregarDescuentoMonto(@RequestParam ("numero") Double descuento, Double total, Model model, String mensaje )
+	{
+		total = miSanguchetto.getPrecio() - descuento;
+		mensaje = "el descuento fue de $"+descuento;
+		
+		model.addAttribute("total", total);
+		model.addAttribute("mensaje", mensaje);
+		
+		return new ModelAndView("graciasPorSuCompra");
+	}
+	
+	@RequestMapping(value="/agregarDescuentoPorcentaje", method=RequestMethod.POST)
+	public ModelAndView agregarDescuentoPorcentaje(@RequestParam ("numero2") Double porcentaje, Double descuento , Double total, Model model, String mensaje )
+	{
+		total= 0.0;
+		descuento = 0.0;
+		
+		descuento = (miSanguchetto.getPrecio()*porcentaje) / 100;
+		total = miSanguchetto.getPrecio() - descuento;
+		mensaje = "el descuento del %"+ porcentaje +" fue de $"+descuento;
+		
+		model.addAttribute("total", total);
+		model.addAttribute("mensaje", mensaje);
+		
+		return new ModelAndView("graciasPorSuCompra");
+	}
+	
+	@RequestMapping("ningunDescuento")
+	public ModelAndView porcentaje(Model model, String mensaje){
+		
+		mensaje= "";
+		model.addAttribute("total", miSanguchetto.getPrecio());
+		model.addAttribute("mensaje", mensaje);
+		return new ModelAndView("graciasPorSuCompra");
+		
+	}
 	
 	@RequestMapping("vaciarCarrito")
 	public ModelAndView vaciarCarrito(){

@@ -13,7 +13,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<select class="form-control" name="tipo" id="tipoSelect">
+
+<form:form method="POST" action="agregarDescuentoMonto.do" onsubmit="return submitir();">
+					<select class="form-control" name="numero" id="tipoSelect">
         						<option>Elija Descuento</option>
        					 			<c:forEach items="${listaMonto}" var="montoLista">
           				 				<!-- <option value="${tipoProducto}">${tipoProducto}</option> -->
@@ -21,6 +23,9 @@
 											<c:out value="${montoLista}" />
 										</option>
         				 			</c:forEach>
-</select>
+					</select>
+			<input type="submit" value="Agregar"/>
+					
+</form:form>			
 </body>
 </html>
