@@ -10,14 +10,65 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="container">	 <!-- //marco contenedor  general -->
+		<div class="page-header" style="text-align:center">
+			<h1>SANGUCHETTO</h1>
+		</div>
+		<div class="row">	
+				<div class="col-md-4 col-md-offset-3">
+					<p>ESTADO DE LA COMPRA</p>
+				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-3">
+				<div class="form-group">
+					<c:forEach items="${listaComprada}" var="listacompra">
+       				 	${listacompra.nombre}
+						$ ${listacompra.precio}</br>
+					</c:forEach>
+    			</div>
+			</div>		       
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-3">
+				<div class="form-group">
+					<label class="text-uppercase">PRECIO TOTAL:$ ${precio}</label>
+    			</div>
+			</div>		       
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-3">
+				<div class="form-group">
+					<label>¿Desea agregar Descuento a su compra?</label>
+    			</div>
+			</div>		       
+		</div>
+		<div class="col-md-4 col-md-offset-3">
+		<div class="btn-toolbar">
+       			 	
+       			 <div class="btn-group">
+      			 	<a href="descuentoMonto.do" class="btn btn-success">Por Monto Fijo</a>
+      			 </div>
+      			     				
+      			<div class="btn-group">
+					<a href="descuentoPorcentaje.do" class="btn btn-success">Por Porcentaje</a>
+				</div>
+		</div>	
+		</br>
+		<div class="btn-group">
+			<a href="ningunDescuento.do" class="btn btn-success">Finalizar Compra</a>
+		</div>	
+		</div>
+	</div>
+		
 
-
-<br>
-<br>
-
-<c:forEach items="${listaComprada}" var="listacompra">
+<!--<c:forEach items="${listaComprada}" var="listacompra">
 
 	${listacompra.nombre}
 	
@@ -34,7 +85,7 @@
 
 </br>
 <br>
-<a href="ningunDescuento.do" class="simulaBoton"> Terminar sanguchetto </a>
+<a href="ningunDescuento.do" class="simulaBoton"> Terminar sanguchetto </a>-->
 
 </body>
 </html>
