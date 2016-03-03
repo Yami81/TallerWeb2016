@@ -10,6 +10,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TP Final Sangucheto</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 	<style type="text/css">
 		.titulo{text-align:center;}
 		label {
@@ -19,7 +23,48 @@
 	</style>
 </head>
 <body>
-	<div id="contenedor">
+	<div class="container">	 <!-- //marco contenedor  general -->
+		<div class="page-header" style="text-align:center">
+			<h1>SANGUCHETTO</h1>
+		</div>
+		<form:form action="mostrarProductoEliminado.do" class="nombre">
+			<div class="row">	
+				<div class="col-md-9">
+					<p>ELIMINAR PRODUCTO</p>
+				</div>
+			</div>
+			<div class="row">	
+					<div class="col-md-5">
+						<div class="form-group">	
+							<label class="text-uppercase">Seleccione Ingrediente</label>
+							<select class="form-control" name="nombre">
+								<option>Elija opci&oacute;n</option>
+								<c:forEach items="${listaIngrediente}" var="ingredientes">
+									<!-- <option value="${ingredientes.nombre}">${ingredientes.nombre}</option>-->
+									<option value="<c:out value="${ingredientes.nombre}" />">
+											<c:out value="${ingredientes.nombre}" />
+									</option>		
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+			</div>		
+			<div class="btn-toolbar">
+       			 	
+       			 <div class="btn-group">
+      			 	<button class="btn btn-success" type="submit">Eliminar</button>
+      			 </div>
+      			     				
+      			<div class="btn-group">
+					<a href="irIndex.do" class="btn btn-success"> Volver Menu Principal </a>
+				</div>
+			</div>		
+				
+			</form:form>
+	</div>
+	
+		
+	<!-- <div id="contenedor">
 		<div id="encabezado">
 			<h2 class="titulo">SANGUCHETO</h2>
 			<div id="textoProducto">
@@ -49,6 +94,6 @@
 				</div>
 			</form:form>
 			
-		</div>
+		</div> -->
 </body>
 </html>

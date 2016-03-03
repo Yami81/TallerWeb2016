@@ -41,7 +41,10 @@
 		}
 		
 		function validarNombre(valor){
-			var expReg = /^([A-Za-z])*$/;
+			var expReg = /^([A-Za-z])*$/;;
+			//^([A-Za-z])*$/;
+			//^[a-zA-ZÒ—]+$/
+			
 			
 			if(expReg.test(valor)){
 				return true;
@@ -63,15 +66,11 @@
 </head>
 <body>
 	<div class="container">	 <!-- //marco contenedor  general -->
-			
+			<div class="page-header" style="text-align:center">
+				<h1>SANGUCHETTO</h1>
+			</div>
 			<form:form method="POST" modelAttribute="ingrediente" action="productoAgregado.do" onsubmit="return submitir();">
-				<div class="row">
-					<div class="col-md-9">
-						<div class="page-header">
-  							<h1 style="text-align:center">SANGUCHETTO</h1>
-						</div>
-					</div>	
-				</div>
+				
 				<div class="row">	
 					<div class="col-md-9">
 					<p>AGREGAR PRODUCTO</p>
@@ -85,7 +84,7 @@
 						</div>
 					</div>	
 				</div>
-				<div class="form-group">
+			
   
 				<div class="row">
 					<div class="col-md-5">

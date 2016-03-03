@@ -11,10 +11,12 @@
 	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="page-header">
-  		<h1 style="text-align:center">BIENVENIDO A SANGUCHETTO</h1>
-	</div>
 	<div class="container">	 <!-- //marco contenedor  general -->
+		<div class="page-header" style="text-align:center">
+				<h1>BIENVENIDO A SANGUCHETTO</h1>
+		</div>
+	
+	
   		<ul>	
 	  		<li class="nav-item">
 	    		<a class="nav-link active" href="formulario.do">Alta Producto</a>

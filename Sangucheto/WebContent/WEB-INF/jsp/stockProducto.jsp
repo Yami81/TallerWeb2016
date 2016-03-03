@@ -8,10 +8,47 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>TP Final Sangucheto</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div id="contenedor">
+	<div class="container">
+		<div class="page-header" style="text-align:center">
+			<h1>SANGUCHETTO</h1>
+		</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+        		<tr>
+            		<th>Nombre</th>
+            		<th>Precio</th>
+            		<th>Tipo</th>
+            		<th>Cantidad</th>
+        		</tr>
+    		</thead>
+    		<tbody>
+    			<c:forEach items="${listaStock}" var="Producto">
+				<tr>
+					<td>${Producto.key.nombre}</td>
+					<td>$ ${Producto.key.precio}</td>
+					<td>${Producto.key.tipo}</td>
+					<td>${Producto.value}</td>
+				</tr>
+			</c:forEach>
+    		</tbody>
+		</table>
+		<div class="btn-toolbar">
+       		<div class="btn-group">
+				<a href="irIndex.do" class="btn btn-success"> Volver Menu Principal </a>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- <div id="contenedor">
 	
 	<div id="encabezado">SANGUCHETO
 			<div id="frase"> Listado Stock de Ingredientes </div>
@@ -38,8 +75,8 @@
 	</div>	
 	</div>
 	
-	<br>
-	<a href="irIndex.do" class="simulaBoton"> Volver Menu Principal </a>
+	<br> 
+	<a href="irIndex.do" class="simulaBoton"> Volver Menu Principal </a>-->
 
 
 </body>
