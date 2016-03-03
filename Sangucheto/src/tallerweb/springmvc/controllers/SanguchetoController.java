@@ -1,5 +1,6 @@
 package tallerweb.springmvc.controllers;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -205,7 +206,7 @@ public class SanguchetoController
 	
 	@RequestMapping("stockVacio")
 	public ModelAndView stockVacio(Model miModelo, String mensaje){
-		mensaje="no hay stock de ese producto en este momento :(";
+		mensaje="No hay stock de ese producto en este momento.";
 		miModelo.addAttribute("mensaje",mensaje);
 		miModelo.addAttribute("precioFinal",miSanguchetto.getPrecio());
 		miModelo.addAttribute("ingredientesSanguchetto", miSanguchetto.verIngredientes());
@@ -295,19 +296,73 @@ public class SanguchetoController
 	
 	
 	@RequestMapping (value = "/terminar")
-	public ModelAndView terminarSanguchetto ()
+	public ModelAndView terminarSanguchetto (Model model, Double descuento, Double descuentoFinal, String mensaje)
 	{
+		descuento = 0.0;
+		descuentoFinal = 0.0;
+		mensaje = "";
 		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet())
-	{for (Ingrediente popo: miSanguchetto.ObtenerCarrito())
-	{if(entry.getKey().getNombre().equals(popo.getNombre()))
+		{for (Ingrediente popo: miSanguchetto.ObtenerCarrito())
+		{if(entry.getKey().getNombre().equals(popo.getNombre()))
 			{miStock.comprarIngrediente(entry.getKey(),1);}}}
 		
-		miSanguchetto.vaciar();
+		if(miSanguchetto.getPrecio() > 20.0){
+			//el descuento es del 10%
+			descuento = miSanguchetto.getPrecio() * 0.10;
+			descuentoFinal = miSanguchetto.getPrecio() - descuento;
+			mensaje = "Se agrego un descuento, su ahorro fue:$" + descuento;
+		}
+		else
+		{
+			descuentoFinal = miSanguchetto.getPrecio();
+		}
 		
+		
+		//Trae lista producto con precio total
+		model.addAttribute("listaComprada", miSanguchetto.ObtenerCarrito());
+		model.addAttribute("precio", descuentoFinal);
+		model.addAttribute("mensajeDescuento", mensaje);			
 		return new ModelAndView("graciasPorSuCompra");
 	}
 	
 	
+	@RequestMapping("descuentoMonto")
+	public ModelAndView monto(Model model){
+		
+		List<Double> monto = new ArrayList<Double>();
+		monto.add(10.0);
+		monto.add(15.0);
+		monto.add(20.0);
+		
+		model.addAttribute("listaMonto", monto);
+		return new ModelAndView("mostrarMonto");
+		
+	}
+	
+	
+	
+	@RequestMapping("descuentoPorcentaje")
+	public ModelAndView porcentaje(Model model){
+		
+		List<Double> porcentaje = new ArrayList<Double>();
+		porcentaje.add(10.0);
+		porcentaje.add(20.0);
+		porcentaje.add(30.0);
+		
+		model.addAttribute("listaPorcentaje", porcentaje);
+		return new ModelAndView("mostrarPorcentaje");
+		
+	}
+	
+	
+	@RequestMapping("vaciarCarrito")
+	public ModelAndView vaciarCarrito(){
+		miSanguchetto.vaciar();
+		
+		return new ModelAndView("inicio");
+	}
+	
+			
 	
 	/*@ModelAttribute("precioSang")
 	public  Double devuelvePrecioSanguchetto(){
