@@ -15,12 +15,24 @@
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<style type="text/css">
+	
 		.titulo{text-align:center;}
 		label {
   				display: block;
   				margin: .5em 0 0 0;
 			 }
 	</style>
+	<script type="text/javascript">
+
+	function submitir(){
+		
+		if (document.form.tipo.selectedIndex==0){ 
+	      	alert("Debe Elegir un tipo."); 
+	      	document.form.tipo.focus() 
+	      	return false;
+		}
+	}
+	</script>
 	<script type="text/javascript">
 		function submitir(){
 			var nombre = document.getElementById("name").value;
@@ -69,7 +81,7 @@
 			<div class="page-header" style="text-align:center">
 				<h1>SANGUCHETTO</h1>
 			</div>
-			<form:form method="POST" modelAttribute="ingrediente" action="productoAgregado.do" onsubmit="return submitir();">
+			<form:form method="POST" modelAttribute="ingrediente" action="productoAgregado.do" onsubmit="return submitir();" name="form">
 				
 				<div class="row">	
 					<div class="col-md-9">
