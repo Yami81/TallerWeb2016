@@ -50,7 +50,7 @@
 				return false;
 		}
 		function validarPrecio(valor){
-			var expReg = /^([0-9])*$/;
+			var expReg = /[,\.][0-9]*)?$/;
 			
 			if(expReg.test(valor)){
 				return true;
