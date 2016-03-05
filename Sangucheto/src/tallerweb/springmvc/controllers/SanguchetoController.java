@@ -171,7 +171,7 @@ public class SanguchetoController
 				miIngrediente = ingrediente;
 				}
 			}
-		
+			miSanguchetto.vaciar();
 			miStock.eliminarIngrediente(miIngrediente);
 		
 			model.addAttribute("ingrediente",miIngrediente);
@@ -338,14 +338,7 @@ public class SanguchetoController
 	public ModelAndView terminarSanguchetto (Model model, Double descuento, String mensaje)
 	{
 		
-		
-		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet())
-		{for (Ingrediente ingre: miSanguchetto.ObtenerCarrito())
-		{if(entry.getKey().getNombre().equals(ingre.getNombre()))
-			{miStock.comprarIngrediente(entry.getKey(),1);}}}
-		
-		
-		
+			
 		
 		//Trae lista producto con precio total
 		model.addAttribute("listaComprada", miSanguchetto.ObtenerCarrito());
@@ -403,7 +396,7 @@ public class SanguchetoController
 		
 		descuento = (miSanguchetto.getPrecio()*porcentaje) / 100;
 		total = miSanguchetto.getPrecio() - descuento;
-		mensaje = "el descuento del %"+ porcentaje +" fue de $"+descuento;
+		mensaje = "El descuento es del %"+ porcentaje +" y el ahorro es del $"+descuento;
 		
 		model.addAttribute("total", total);
 		model.addAttribute("mensaje", mensaje);
@@ -423,6 +416,19 @@ public class SanguchetoController
 	
 	@RequestMapping("vaciarCarrito")
 	public ModelAndView vaciarCarrito(){
+		for(Map.Entry<Ingrediente, Integer> entry : miStock.obtenerStock().entrySet())
+		{for (Ingrediente ingre: miSanguchetto.ObtenerCarrito())
+		{if(entry.getKey().getNombre().equals(ingre.getNombre()))
+			{miStock.comprarIngrediente(entry.getKey(),1);}}}
+		
+		miSanguchetto.vaciar();
+		
+		return new ModelAndView("inicio");
+	}
+	
+	@RequestMapping("vaciarCarrito2")
+	public ModelAndView vaciarCarrito2(){
+				
 		miSanguchetto.vaciar();
 		
 		return new ModelAndView("inicio");
@@ -430,10 +436,7 @@ public class SanguchetoController
 	
 			
 	
-	/*@ModelAttribute("precioSang")
-	public  Double devuelvePrecioSanguchetto(){
-		return miSanguchetto.getPrecio();
-	}*/
+	
 	
 	
 	

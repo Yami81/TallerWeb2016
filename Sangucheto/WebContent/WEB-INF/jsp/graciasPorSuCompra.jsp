@@ -10,16 +10,49 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="container">	 <!-- //marco contenedor  general -->
+		<div class="page-header" style="text-align:center">
+			<h1>SANGUCHETTO</h1>
+		</div>
+		<div class="row">	
+			<div class="col-md-5">
+				<div class="form-group">	
+					<label class="text-uppercase">${mensaje}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">	
+			<div class="col-md-5">
+				<div class="form-group">	
+					<label class="text-uppercase">PRECIO FINAL:$ ${total}</label>
+				</div>
+			</div>
+		</div>
+																			
+			<div class="alert alert-success" style="text-align:center">
+				Gracias por su compra, vuelva pronto!!!
+			</div>
+			<center>
+		
+       		<a href="vaciarCarrito.do" class="btn btn-success">Finalizar</a>
+			
+		</center>
+			
+	</div>	
 
-${mensaje}
+<!-- ${mensaje}
 <br>
 <p>El precio final es de $ ${total}</p>
 <br>
 <p>Gracias por su compra, vuelva pronto</p>
 <br>
-<a href="vaciarCarrito.do">Finalizar</a>
+<a href="vaciarCarrito.do">Finalizar</a> -->
 
 
 

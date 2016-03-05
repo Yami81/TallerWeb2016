@@ -21,6 +21,26 @@
   				margin: .5em 0 0 0;
 			 }
 	</style>
+	<script type="text/javascript">
+		function submitir(){
+		
+			if (document.form1.nombre.selectedIndex==0){ 
+		      	alert("Debe elegir Ingrediente."); 
+		      	document.form1.nombre.focus() 
+		      	return false;
+			}
+			
+			
+		}
+		function confirmar(){
+			
+			if (document.form2.nombre2.selectedIndex==0){ 
+		      	alert("Debe elegir Condimento."); 
+		      	document.form2.nombre2.focus() 
+		      	return false;
+			}
+		}
+	</script>
 </head>
 </head>
 <body>
@@ -33,7 +53,7 @@
 					<p>AGREGAR SU PEDIDO A SANGUCHETTO</p>
 				</div>
 		</div>
-		<form:form action="comprarIngredientes.do" method="POST" onsubmit="return submitir(this);">
+		<form:form action="comprarIngredientes.do" method="POST" onsubmit="return submitir(this);" name="form1">
 			
 			<div class="row">	
 					<div class="col-md-5">
@@ -55,7 +75,7 @@
       			 <button class="btn btn-success" type="submit">Agregar Ingrediente</button>
       		</div>
 		</form:form>
-		<form:form action="comprarCondimentos.do" method="POST" onsubmit="return submitir(this);">
+		<form:form action="comprarCondimentos.do" method="POST" onsubmit="return confirmar(this);" name="form2">
 			<div class="row">	
 					<div class="col-md-5">
 						<div class="form-group">	
@@ -117,7 +137,7 @@
       			 </div>
       			     				
       			<div class="btn-group">
-					<a href="irIndex.do" class="btn btn-success"> Volver Menu Principal </a>
+					<a href="vaciarCarrito2.do" class="btn btn-success">Cancelar</a>
 				</div>
 		</div>
 	</div>

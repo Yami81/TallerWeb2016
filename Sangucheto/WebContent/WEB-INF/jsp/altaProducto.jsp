@@ -22,13 +22,48 @@
 			 }
 	</style>
 	<script type="text/javascript">
+	
 		function submitir(){
+			var nombre = document.getElementById("name").value;
+			var precio = document.getElementById("price").value;
+			var expRegNombre = /^([A-Za-z])*$/;
+			var expRegPrecio = /^[0-9]+(\.[0-9]{1,2})?$/;
+			
+			if(expRegNombre.test(nombre)){
+				if(expRegPrecio.test(precio)){
+					if(document.form.tipo.selectedIndex != 0){
+						document.form.tipo.focus();
+						return true;
+					}
+					else
+					{
+						alert("No se puede dar de alta el producto. Por favor verifique datos ingresados.");
+						return false;
+					}
+				}
+				else
+					{
+						alert("No se puede dar de alta el producto. Por favor verifique datos ingresados.");
+						return false;
+					}
+			}
+			else
+			{
+				alert("No se puede dar de alta el producto. Por favor verifique datos ingresados.");
+				return false;
+			}
+		}
+		
+		
+		
+		
+		/*function submitir(){
 			var nombre = document.getElementById("name").value;
 			var precio = document.getElementById("price").value;
 			
 					
 			
-			if(validarNombre(nombre) && validarPrecio(precio)){
+			if(validarNombre(nombre)==true && validarPrecio(precio)==true){
 				
 				return true;
 				
@@ -53,14 +88,14 @@
 				return false;
 		}
 		function validarPrecio(valor){
-			var expReg = /[,\.][0-9]*)?$/;
+			var expReg = /^[0-9]+(\.[0-9]{1,2})?$/;/* /[,\.][0-9]*)?$/;*/
 			
-			if(expReg.test(valor)){
+		/*	if(expReg.test(valor)){
 				return true;
 			}
 			else 
 				return false;
-		}
+		}*/
 		
 	</script>
 </head>
@@ -69,7 +104,7 @@
 			<div class="page-header" style="text-align:center">
 				<h1>SANGUCHETTO</h1>
 			</div>
-			<form:form method="POST" modelAttribute="ingrediente" action="productoAgregado.do" onsubmit="return submitir();">
+			<form:form method="POST" modelAttribute="ingrediente" action="productoAgregado.do" onsubmit="return submitir();" name="form">
 				
 				<div class="row">	
 					<div class="col-md-9">
