@@ -15,6 +15,7 @@
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<style type="text/css">
+	
 		.titulo{text-align:center;}
 		label {
   				display: block;
@@ -22,7 +23,21 @@
 			 }
 	</style>
 	<script type="text/javascript">
+<<<<<<< HEAD
 	
+=======
+
+	function submitir(){
+		
+		if (document.form.tipo.selectedIndex==0){ 
+	      	alert("Debe Elegir un tipo."); 
+	      	document.form.tipo.focus() 
+	      	return false;
+		}
+	}
+	</script>
+	<script type="text/javascript">
+>>>>>>> origin/master
 		function submitir(){
 			var nombre = document.getElementById("name").value;
 			var precio = document.getElementById("price").value;
